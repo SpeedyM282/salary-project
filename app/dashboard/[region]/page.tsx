@@ -1,18 +1,21 @@
+"use client";
 import React from "react";
 import { Stack, Typography } from "@mui/material";
 
 const Region = () => {
+	const name = localStorage.getItem("name");
+
 	return (
 		<Stack
-			p={10}
-			gap={7}
-			direction="row"
-			flexWrap="wrap"
-			justifyContent="center"
+			maxWidth={600}
+			width="100%"
+			gap={2}
+			direction="column"
+			alignItems="center"
 		>
 			<Stack
-				width={170}
-				p={5}
+				p={3}
+				width="100%"
 				borderRadius={3}
 				sx={{
 					transition: "0.3s",
@@ -23,13 +26,14 @@ const Region = () => {
 				}}
 				border="1px solid rgba(0, 0, 0, 0.15)"
 			>
-				<Typography variant="h5" textAlign="center">
+				<Typography variant="h6" textAlign="center">
 					Mayor
 				</Typography>
 			</Stack>
+
 			<Stack
-				p={5}
-				width={170}
+				p={3}
+				width="100%"
 				borderRadius={3}
 				border="1px solid rgba(0, 0, 0, 0.15)"
 				sx={{
@@ -40,13 +44,13 @@ const Region = () => {
 					},
 				}}
 			>
-				<Typography variant="h5" textAlign="center">
+				<Typography variant="h6" textAlign="center">
 					Serjant
 				</Typography>
 			</Stack>
 			<Stack
-				p={5}
-				width={170}
+				p={3}
+				width="100%"
 				borderRadius={3}
 				border="1px solid rgba(0, 0, 0, 0.15)"
 				sx={{
@@ -57,7 +61,7 @@ const Region = () => {
 					},
 				}}
 			>
-				<Typography variant="h5" textAlign="center">
+				<Typography variant="h6" textAlign="center">
 					Ofitser
 				</Typography>
 			</Stack>
