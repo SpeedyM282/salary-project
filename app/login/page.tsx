@@ -56,10 +56,9 @@ const Login = () => {
 
 	const onSubmit: SubmitHandler<FormData> = (data) => {
 		login(data).then((res: any) => {
-			if (res?.data) {
-				console.log(res.data);
-				localStorage.setItem("token", res.data?.token);
-				localStorage.setItem("name", res.data?.data?.name);
+			if (res) {
+				sessionStorage.setItem("token", res.data?.token || "");
+				sessionStorage.setItem("name", res.data?.data?.name || "");
 				router.push(
 					res.data?.data?.name === "Respublika"
 						? "/dashboard"

@@ -9,14 +9,14 @@ const DashboardLayout = ({ children }: PropsWithChildren) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const [open, setOpen] = useState(false);
-	const name = localStorage.getItem("name");
+	const name = sessionStorage.getItem("name");
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
 	const handleLogout = () => {
-		localStorage.setItem("name", "");
-		localStorage.setItem("token", "");
+		sessionStorage.setItem("name", "");
+		sessionStorage.setItem("token", "");
 		router.push("/login");
 	};
 

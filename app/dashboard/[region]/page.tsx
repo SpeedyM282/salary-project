@@ -3,7 +3,7 @@ import React from "react";
 import { Stack, Typography } from "@mui/material";
 
 const Region = () => {
-	const name = localStorage.getItem("name");
+	const name = sessionStorage.getItem("name");
 
 	return (
 		<Stack

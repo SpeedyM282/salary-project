@@ -1,25 +1,9 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { regions } from "../utils";
-import LogoutModal from "./LogoutModal";
-import { useRouter } from "next/navigation";
-import LogoutIcon from "@mui/icons-material/Logout";
-import { Button, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 const Dashboard = () => {
-	// const router = useRouter();
-	// const [open, setOpen] = useState(false);
-
-	// const handleOpen = () => setOpen(true);
-	// const handleClose = () => setOpen(false);
-
-	// const handleLogout = () => {
-	// 	localStorage.setItem("name", "");
-	// 	localStorage.setItem("token", "");
-	// 	router.push("/login");
-	// };
-
 	return (
 		<Stack width="100%" direction="column" gap={2}>
 			{regions.map((e) => (
