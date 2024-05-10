@@ -1,27 +1,26 @@
 "use client";
 import * as yup from "yup";
 import Image from "next/image";
+import { regions } from "../utils";
 import React, { useState } from "react";
+import { login } from "@/services/auth";
 import salary from "@/public/salary.png";
+import { useRouter } from "next/navigation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
 	Stack,
 	Select,
+	Button,
 	MenuItem,
 	InputLabel,
 	Typography,
+	IconButton,
 	FormControl,
-	SelectChangeEvent,
 	OutlinedInput,
 	InputAdornment,
-	IconButton,
-	Button,
 } from "@mui/material";
-import { regions } from "../utils";
-import { login } from "@/services/auth";
-import { useRouter } from "next/navigation";
 
 interface FormData {
 	name: string;
@@ -162,6 +161,8 @@ const Login = () => {
 							OK
 						</Button>
 					</Stack>
+
+					<></>
 				</Stack>
 			</Stack>
 		</Stack>

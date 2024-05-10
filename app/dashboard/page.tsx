@@ -5,9 +5,9 @@ import { Stack, Typography } from "@mui/material";
 
 const Dashboard = () => {
 	return (
-		<Stack width="100%" direction="column" gap={2}>
+		<Stack maxWidth={600} width="100%" m="0 auto" direction="column" gap={2}>
 			{regions.map((e) => (
-				<Link key={e} href={`/dashboard/${e}`}>
+				<Link key={e} href={`/dashboard/${e}/Bo'limlar`}>
 					<Stack
 						p={3}
 						borderRadius={3}
