@@ -1,67 +1,108 @@
-import * as yup from "yup";
 import { IRank } from "@/app/types";
-import React, { useEffect } from "react";
-import { Button, Stack, TextField } from "@mui/material";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, SubmitHandler } from "react-hook-form";
-import CustomModal, { ICustomModalProps } from "@/components/CustomModal";
+import React, { FormEvent, useState } from "react";
 import { createRank } from "@/services/sections/rank";
+import { Button, IconButton, Stack, TextField } from "@mui/material";
+import CustomModal, { ICustomModalProps } from "@/components/CustomModal";
+import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 
 interface IProps extends ICustomModalProps {
-	addTableData: (data: IRank) => void;
+	addTableData: (data: IRank[]) => void;
 }
 
-const RankCreateFormModal = ({ open, onClose, addTableData }: IProps) => {
-	const rankSchema = yup.object().shape({
-		name: yup.string().required("Unvon nomi shart"),
-		summa: yup.number().required("Summa shart"),
-	});
+const INITIAL_STATE = { name: "", summa: 0 };
 
-	const {
-		reset,
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<IRank>({
-		resolver: yupResolver(rankSchema),
-	});
+const RankCreateFormModal = ({ open, onClose, addTableData }: IProps) => {
+	const [dataForms, setDataForms] = useState<IRank[]>([INITIAL_STATE]);
 
 	const handleClose = () => {
-		reset({});
+		setDataForms([INITIAL_STATE]);
 		onClose();
 	};
 
-	const onSubmit: SubmitHandler<IRank> = (data) => {
-		createRank([data]).then((res) => {
+	const handleChange = (
+		value: number | string,
+		key: keyof IRank,
+		index: number
+	) => {
+		setDataForms((prev: IRank[]) =>
+			prev.map((e: IRank, i: number) =>
+				i === index ? { ...e, [key]: value } : e
+			)
+		);
+	};
+
+	const handleAddForm = () => {
+		setDataForms((prev: IRank[]) => [...prev, INITIAL_STATE]);
+	};
+
+	const handleDeleteForm = (index: number) => {
+		setDataForms((prev: IRank[]) => prev.filter((_, i) => i !== index));
+	};
+
+	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+
+		createRank(dataForms).then((res) => {
 			if (res) {
-				addTableData(res.data?.data[0]);
+				addTableData(res.data?.data);
 				handleClose();
 			}
 		});
 	};
 
 	return (
-		<CustomModal open={open} onClose={handleClose} title="Unvon" reset={reset}>
-			<Stack
-				component="form"
-				onSubmit={handleSubmit(onSubmit)}
-				direction="column"
-				gap={3}
-			>
-				<TextField
-					label="Unvon nomi"
-					{...register("name")}
-					error={!!errors.name}
-					helperText={errors.name?.message}
-				/>
-				<TextField
-					label="Summa"
-					{...register("summa")}
-					error={!!errors.summa}
-					helperText={errors.summa?.message}
-				/>
+		<CustomModal
+			open={open}
+			title="Unvon"
+			onClose={handleClose}
+			reset={() => setDataForms([INITIAL_STATE])}
+		>
+			<Stack component="form" onSubmit={onSubmit} direction="column" gap={3}>
+				{dataForms.map((rank, index) => (
+					<Stack
+						key={index}
+						pb={3}
+						gap={2}
+						direction="row"
+						borderBottom="1px solid #999999"
+					>
+						<TextField
+							fullWidth
+							value={rank.name}
+							label="Unvon nomi"
+							onChange={(e) => handleChange(e.target.value, "name", index)}
+						/>
 
-				<Stack direction="row" gap={3}>
+						<Stack width="100%" direction="row" alignItems="center">
+							<TextField
+								label="Summa"
+								type="number"
+								value={rank.summa}
+								onChange={(e) => handleChange(e.target.value, "summa", index)}
+							/>
+							{dataForms.length - 1 === index ? (
+								<IconButton
+									color="success"
+									onClick={handleAddForm}
+									sx={{ width: 35, height: 35 }}
+								>
+									<AddCircleOutlineRoundedIcon />
+								</IconButton>
+							) : (
+								<IconButton
+									color="error"
+									onClick={() => handleDeleteForm(index)}
+									sx={{ width: 35, height: 35 }}
+								>
+									<HighlightOffRoundedIcon />
+								</IconButton>
+							)}
+						</Stack>
+					</Stack>
+				))}
+
+				<Stack direction="row" gap={2}>
 					<Button fullWidth variant="outlined" onClick={handleClose}>
 						Bekor qilish
 					</Button>

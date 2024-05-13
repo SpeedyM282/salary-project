@@ -12,7 +12,6 @@ import {
 	TableFooter,
 	TableContainer,
 	TablePagination,
-	Typography,
 } from "@mui/material";
 import { formatDate } from "@/app/utils";
 
@@ -56,9 +55,9 @@ const CustomTable = ({ rows, columns }: IProps) => {
 				{/* -------------------------------------- TABLE BODY -------------------------------------- */}
 
 				<TableBody>
-					{rows.map((e: any) => (
+					{rows.map((e: any, i: number) => (
 						<TableRow
-							key={e}
+							key={e._id}
 							sx={{
 								"&:last-child td, &:last-child th": { border: 0 },
 							}}

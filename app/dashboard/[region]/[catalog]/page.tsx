@@ -31,8 +31,8 @@ const RegionLayout = () => {
 
 	const onClose = () => setOpen(false);
 
-	const addTableData = (data: any) => {
-		setTableData((prev: any[]) => [...prev, data]);
+	const addTableData = (data: any[]) => {
+		setTableData((prev: any[]) => [...prev, ...data]);
 	};
 
 	useEffect(() => {
